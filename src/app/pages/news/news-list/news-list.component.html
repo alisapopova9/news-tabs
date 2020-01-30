@@ -1,7 +1,10 @@
-<div>
-  <a href="#" *ngFor="let paper of news">
-    <div>
+<div class="news-list__container">
+  <a href="#" *ngFor="let paper of news" class="news-list__item">
+    <div class="item__title">
       {{ paper.title }}
+    </div>
+    <div>
+      Source: {{ paper.source }}
     </div>
   </a>
 </div>
