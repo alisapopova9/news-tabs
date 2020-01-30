@@ -1,0 +1,33 @@
+.tabs__container {
+  margin-bottom: 10px;
+}
+
+.tabs {
+  list-style: none;
+  display: flex;
+  margin: 0;
+  padding: 0;
+}
+
+.tabs__tab:not(:last-of-type) {
+  margin-right: 25px;
+}
+
+.tab {
+  color: black;
+  font-size: 24px;
+  line-height: 32px;
+  letter-spacing: -0.4px;
+  text-decoration: none;
+  border-bottom: 3px solid #EEEEEE;
+  transition: border-bottom-color ease-in 200ms;
+}
+
+.tab:hover {
+  border-bottom-color: #1E79BE;
+}
+
+.tab_selected {
+  box-sizing: border-box;
+  border-bottom: 3px solid #1E79BE;
+}

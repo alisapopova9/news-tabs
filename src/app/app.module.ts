@@ -6,10 +6,11 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NewsListComponent } from './pages/news/news-list/news-list.component';
-import { InputComponent } from './components/input/input.component';
+import { InputComponent } from './shared/components/input/input.component';
 import { AllNewsComponent } from './pages/news/all-news/all-news.component';
 import { TopNewsComponent } from './pages/news/top-news/top-news.component';
 import { ApiKeyInterceptorService } from './core/interceptors/api-key-interceptor-service';
+import { TabsComponent } from './components/tabs/tabs.component';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,8 @@ import { ApiKeyInterceptorService } from './core/interceptors/api-key-intercepto
     NewsListComponent,
     InputComponent,
     AllNewsComponent,
-    TopNewsComponent
+    TopNewsComponent,
+    TabsComponent
   ],
   imports: [
     BrowserModule,
