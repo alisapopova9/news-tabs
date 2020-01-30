@@ -11,6 +11,9 @@ import { AllNewsComponent } from './pages/news/all-news/all-news.component';
 import { TopNewsComponent } from './pages/news/top-news/top-news.component';
 import { ApiKeyInterceptorService } from './core/interceptors/api-key-interceptor-service';
 import { TabsComponent } from './components/tabs/tabs.component';
+import { NewsModalModule } from './components/news-modal/news-modal.module';
+import { NewsModalComponent } from './components/news-modal/news-modal/news-modal.component';
+import { ModalContentComponent } from './components/modal-content/modal-content.component';
 
 @NgModule({
   declarations: [
@@ -19,12 +22,14 @@ import { TabsComponent } from './components/tabs/tabs.component';
     InputComponent,
     AllNewsComponent,
     TopNewsComponent,
-    TabsComponent
+    TabsComponent,
+    ModalContentComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    NewsModalModule
   ],
   providers: [
     {
@@ -33,6 +38,7 @@ import { TabsComponent } from './components/tabs/tabs.component';
       multi: true
     }
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [ModalContentComponent]
 })
 export class AppModule { }

@@ -1,10 +1,10 @@
 <div class="news-list__container">
-  <a href="#" *ngFor="let paper of news" class="news-list__item">
+  <div *ngFor="let paper of news" class="news-list__item" (click)="onItemClick()">
     <div class="item__title">
       {{ paper.title }}
     </div>
     <div>
       Source: {{ paper.source }}
     </div>
-  </a>
+  </div>
 </div>
