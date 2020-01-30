@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 
 import { NewsService } from '../../../core/services/news.service';
 import { News } from '../../../shared/interfaces/news';
+import { NewsSearchResult } from '../../../shared/interfaces/news-search-result';
 
 @Component({
   selector: 'app-top-news',
@@ -9,7 +10,7 @@ import { News } from '../../../shared/interfaces/news';
   styleUrls: ['./top-news.component.scss']
 })
 export class TopNewsComponent implements OnInit {
-  public news: News[];
+  public news: News[] = [];
 
   constructor(private newsService: NewsService) { }
 
@@ -18,7 +19,15 @@ export class TopNewsComponent implements OnInit {
   }
 
   private getTopNews(): void {
-    this.newsService.getAllTopNews().subscribe((data: any) => console.log(data));
+    this.newsService.getAllTopNews().subscribe((data: any) => {
+      data.articles.forEach((article: any) => {
+        const news: News = {
+          title: article.title,
+          source: article.source.name
+        };
+        this.news.push(news);
+      });
+    });
   }
 
 }
