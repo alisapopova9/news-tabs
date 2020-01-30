@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ModalConfig } from '../news-modal/modal-config';
 
 @Component({
   selector: 'app-modal-content',
@@ -7,9 +8,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ModalContentComponent implements OnInit {
 
-  constructor() { }
+  constructor(public config: ModalConfig) { }
 
-  ngOnInit() {
+  public ngOnInit(): void {
   }
 
 }

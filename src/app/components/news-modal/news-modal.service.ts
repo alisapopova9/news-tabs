@@ -9,6 +9,8 @@ import {
 } from '@angular/core';
 import { NewsModalModule } from './news-modal.module';
 import { NewsModalComponent } from './news-modal/news-modal.component';
+import { NewsModalInjector } from './news-modal-injector';
+import { ModalConfig } from './modal-config';
 
 @Injectable({
   providedIn: NewsModalModule
@@ -20,14 +22,16 @@ export class NewsModalService {
               private appRef: ApplicationRef,
               private injector: Injector) { }
 
-  public open(componentType: Type<any>): void {
-    this.appendDialogComponentToBody();
+  public open(componentType: Type<any>, config: ModalConfig): void {
+    this.appendDialogComponentToBody(config);
     this.dialogComponentRef.instance.childComponentType = componentType;
   }
 
-  private appendDialogComponentToBody(): void {
+  private appendDialogComponentToBody(config: ModalConfig): void {
+    const map = new WeakMap();
+    map.set(ModalConfig, config);
     const componentFactory: ComponentFactory<NewsModalComponent> = this.componentFactoryResolver.resolveComponentFactory(NewsModalComponent);
-    const componentRef: ComponentRef<NewsModalComponent> = componentFactory.create(this.injector);
+    const componentRef: ComponentRef<NewsModalComponent> = componentFactory.create(new NewsModalInjector(this.injector, map));
     this.appRef.attachView(componentRef.hostView);
 
     const domElem: HTMLElement = (componentRef.hostView as EmbeddedViewRef<any>).rootNodes[0] as HTMLElement;

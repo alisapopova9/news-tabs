@@ -12,8 +12,8 @@ import { TopNewsComponent } from './pages/news/top-news/top-news.component';
 import { ApiKeyInterceptorService } from './core/interceptors/api-key-interceptor-service';
 import { TabsComponent } from './components/tabs/tabs.component';
 import { NewsModalModule } from './components/news-modal/news-modal.module';
-import { NewsModalComponent } from './components/news-modal/news-modal/news-modal.component';
 import { ModalContentComponent } from './components/modal-content/modal-content.component';
+import { ModalConfig } from './components/news-modal/modal-config';
 
 @NgModule({
   declarations: [
@@ -36,7 +36,8 @@ import { ModalContentComponent } from './components/modal-content/modal-content.
       provide: HTTP_INTERCEPTORS,
       useClass: ApiKeyInterceptorService,
       multi: true
-    }
+    },
+    ModalConfig
   ],
   bootstrap: [AppComponent],
   entryComponents: [ModalContentComponent]
