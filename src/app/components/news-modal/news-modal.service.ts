@@ -12,7 +12,7 @@ import { NewsModalComponent } from './news-modal/news-modal.component';
 import { NewsModalInjector } from './news-modal-injector';
 import { ModalConfig } from './modal-config';
 import { ModalRef } from './news-modal/modal-ref';
-import { Observable, Subscription } from 'rxjs';
+import { Subscription } from 'rxjs';
 import { BodyScrollingService } from '../../core/services/body-scrolling.service';
 
 @Injectable({
