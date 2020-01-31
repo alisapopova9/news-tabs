@@ -1,1 +1,5 @@
-<p>{{ config.data }}</p>
+<div>
+  <h1 class="modal-content__header">{{ config.data.title }}</h1>
+  <img [src]="config.data.urlToImage" alt="" class="modal-content__image">
+  <p>{{ config.data.description }}</p>
+</div>

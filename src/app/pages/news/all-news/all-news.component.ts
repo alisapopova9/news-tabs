@@ -22,7 +22,9 @@ export class AllNewsComponent implements OnInit {
       data.articles.forEach((article: any) => {
         const news: News = {
           title: article.title,
-          source: article.source.name
+          source: article.source.name,
+          description: article.description,
+          urlToImage: article.urlToImage
         };
         this.news.push(news);
       });

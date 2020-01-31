@@ -17,8 +17,10 @@ export class NewsListComponent implements OnInit {
   public ngOnInit(): void {
   }
 
-  public onItemClick(event: Event): void {
-    this.modal.open(ModalContentComponent, {data: 'blablabla'});
+  public onItemClick(event: Event, paper: News): void {
+    const targetItem: HTMLDivElement = event.target as HTMLDivElement;
+    const article: string = targetItem.getAttribute('article');
+    this.modal.open(ModalContentComponent, {data: paper});
   }
 
 }
