@@ -13,6 +13,7 @@ import { NewsModalInjector } from './news-modal-injector';
 import { ModalConfig } from './modal-config';
 import { ModalRef } from './news-modal/modal-ref';
 import { Observable, Subscription } from 'rxjs';
+import { BodyScrollingService } from '../../core/services/body-scrolling.service';
 
 @Injectable({
   providedIn: NewsModalModule
@@ -22,11 +23,13 @@ export class NewsModalService {
 
   constructor(private componentFactoryResolver: ComponentFactoryResolver,
               private appRef: ApplicationRef,
-              private injector: Injector) { }
+              private injector: Injector,
+              private bodyScrollingService: BodyScrollingService) { }
 
   public open(componentType: Type<any>, config: ModalConfig): ModalRef {
     const modalRef: ModalRef = this.appendDialogComponentToBody(config);
     this.modalComponentRef.instance.childComponentType = componentType;
+    this.bodyScrollingService.disable();
 
     return modalRef;
   }
@@ -40,6 +43,7 @@ export class NewsModalService {
 
     const sub: Subscription = modalRef.afterClosed.subscribe(() => {
       this.removeDialogComponentFromBody();
+      this.bodyScrollingService.enable();
       sub.unsubscribe();
     });
 
