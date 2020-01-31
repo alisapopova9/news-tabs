@@ -17,4 +17,7 @@
     </div>
   </form>
   <app-news-list [news]="news"></app-news-list>
+  <div class="all-news__button-container">
+    <button *ngIf="isMoreItems === true">Show more...</button>
+  </div>
 </div>

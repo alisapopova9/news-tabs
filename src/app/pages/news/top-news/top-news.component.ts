@@ -19,19 +19,18 @@ export class TopNewsComponent implements OnInit {
 
   public ngOnInit(): void {
     this.getTopNews();
-    this.isMoreItems = (this._articlesCnt - Number.parseInt(this.displayCnt, 10)) > 0;
   }
 
   public onDisplayCntChange(displayCntValue: string): void {
     this.displayCnt = displayCntValue;
     this.news = [];
     this.getTopNews(displayCntValue);
-    this.isMoreItems = (this._articlesCnt - Number.parseInt(this.displayCnt, 10)) > 0;
   }
 
   private getTopNews(pageSize?: string): void {
     this.newsService.getAllTopNews(pageSize).subscribe((data: any) => {
       this._articlesCnt = data.totalResults;
+      this.isMoreItems = (this._articlesCnt - Number.parseInt(this.displayCnt, 10)) > 0;
       data.articles.forEach((article: any) => {
         const news: News = {
           title: article.title,

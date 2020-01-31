@@ -11,6 +11,9 @@ export class AllNewsComponent implements OnInit {
   public news: News[] = [];
   public displayCnt: string = '20';
   public page: number = 1;
+  public isMoreItems: boolean;
+
+  private _articlesCnt: number;
 
   constructor(private newsService: NewsService) {
   }
@@ -27,6 +30,8 @@ export class AllNewsComponent implements OnInit {
 
   private getAllNews(pageSize?: string): void {
     this.newsService.getAllNews(pageSize).subscribe((data: any) => {
+      this._articlesCnt = data.totalResults;
+      this.isMoreItems = (this._articlesCnt - Number.parseInt(this.displayCnt, 10)) > 0;
       data.articles.forEach((article: any) => {
         const news: News = {
           title: article.title,
