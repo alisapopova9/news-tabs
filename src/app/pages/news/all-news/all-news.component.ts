@@ -9,6 +9,8 @@ import { NewsService } from '../../../core/services/news.service';
 })
 export class AllNewsComponent implements OnInit {
   public news: News[] = [];
+  public displayCnt: string = '20';
+  public page: number = 1;
 
   constructor(private newsService: NewsService) {
   }
@@ -17,8 +19,14 @@ export class AllNewsComponent implements OnInit {
     this.getAllNews();
   }
 
-  private getAllNews(): void {
-    this.newsService.getAllNews().subscribe((data: any) => {
+  public onDisplayCntChange(displayCntValue: string): void {
+    this.displayCnt = displayCntValue;
+    this.news = [];
+    this.getAllNews(displayCntValue);
+  }
+
+  private getAllNews(pageSize?: string): void {
+    this.newsService.getAllNews(pageSize).subscribe((data: any) => {
       data.articles.forEach((article: any) => {
         const news: News = {
           title: article.title,

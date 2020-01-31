@@ -14,6 +14,7 @@ import { TabsComponent } from './components/tabs/tabs.component';
 import { NewsModalModule } from './components/news-modal/news-modal.module';
 import { ModalContentComponent } from './components/modal-content/modal-content.component';
 import { ModalConfig } from './components/news-modal/modal-config';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import { ModalConfig } from './components/news-modal/modal-config';
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    NewsModalModule
+    NewsModalModule,
+    FormsModule
   ],
   providers: [
     {
