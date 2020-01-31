@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ModalConfig } from '../news-modal/modal-config';
+import { ModalRef } from '../news-modal/news-modal/modal-ref';
 
 @Component({
   selector: 'app-modal-content',
@@ -8,9 +9,13 @@ import { ModalConfig } from '../news-modal/modal-config';
 })
 export class ModalContentComponent implements OnInit {
 
-  constructor(public config: ModalConfig) { }
+  constructor(public config: ModalConfig, public modal: ModalRef) { }
 
   public ngOnInit(): void {
+  }
+
+  public onClose(): void {
+    this.modal.close();
   }
 
 }

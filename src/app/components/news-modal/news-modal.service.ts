@@ -11,25 +11,38 @@ import { NewsModalModule } from './news-modal.module';
 import { NewsModalComponent } from './news-modal/news-modal.component';
 import { NewsModalInjector } from './news-modal-injector';
 import { ModalConfig } from './modal-config';
+import { ModalRef } from './news-modal/modal-ref';
+import { Observable, Subscription } from 'rxjs';
 
 @Injectable({
   providedIn: NewsModalModule
 })
 export class NewsModalService {
-  private dialogComponentRef: ComponentRef<NewsModalComponent>;
+  private modalComponentRef: ComponentRef<NewsModalComponent>;
 
   constructor(private componentFactoryResolver: ComponentFactoryResolver,
               private appRef: ApplicationRef,
               private injector: Injector) { }
 
-  public open(componentType: Type<any>, config: ModalConfig): void {
-    this.appendDialogComponentToBody(config);
-    this.dialogComponentRef.instance.childComponentType = componentType;
+  public open(componentType: Type<any>, config: ModalConfig): ModalRef {
+    const modalRef: ModalRef = this.appendDialogComponentToBody(config);
+    this.modalComponentRef.instance.childComponentType = componentType;
+
+    return modalRef;
   }
 
-  private appendDialogComponentToBody(config: ModalConfig): void {
+  private appendDialogComponentToBody(config: ModalConfig): ModalRef {
     const map = new WeakMap();
     map.set(ModalConfig, config);
+
+    const modalRef: ModalRef = new ModalRef();
+    map.set(ModalRef, modalRef);
+
+    const sub: Subscription = modalRef.afterClosed.subscribe(() => {
+      this.removeDialogComponentFromBody();
+      sub.unsubscribe();
+    });
+
     const componentFactory: ComponentFactory<NewsModalComponent> = this.componentFactoryResolver.resolveComponentFactory(NewsModalComponent);
     const componentRef: ComponentRef<NewsModalComponent> = componentFactory.create(new NewsModalInjector(this.injector, map));
     this.appRef.attachView(componentRef.hostView);
@@ -37,11 +50,15 @@ export class NewsModalService {
     const domElem: HTMLElement = (componentRef.hostView as EmbeddedViewRef<any>).rootNodes[0] as HTMLElement;
     document.body.appendChild(domElem);
 
-    this.dialogComponentRef = componentRef;
+    this.modalComponentRef = componentRef;
+
+    this.modalComponentRef.instance.onClose.subscribe(() => this.removeDialogComponentFromBody());
+
+    return modalRef;
   }
 
   private removeDialogComponentFromBody(): void {
-    this.appRef.detachView(this.dialogComponentRef.hostView);
-    this.dialogComponentRef.destroy();
+    this.appRef.detachView(this.modalComponentRef.hostView);
+    this.modalComponentRef.destroy();
   }
 }

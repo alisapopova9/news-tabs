@@ -10,6 +10,7 @@ import {
   ViewChild, ViewContainerRef
 } from '@angular/core';
 import { InsertionDirective } from '../insertion.directive';
+import { Observable, Subject } from 'rxjs';
 
 @Component({
   selector: 'app-news-modal',
@@ -18,8 +19,11 @@ import { InsertionDirective } from '../insertion.directive';
 })
 export class NewsModalComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild(InsertionDirective, {static: false}) public insertionPoint: InsertionDirective;
+  private readonly _onClose: Subject<any> = new Subject<any>();
+
   public componentRef: ComponentRef<any>;
   public childComponentType: Type<any>;
+  public onClose: Observable<any> = this._onClose.asObservable();
 
   constructor(private componentFactoryResolver: ComponentFactoryResolver,
               private cd: ChangeDetectorRef) { }

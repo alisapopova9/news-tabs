@@ -1,5 +1,8 @@
 <div>
-  <h1 class="modal-content__header">{{ config.data.title }}</h1>
+  <div class="modal-content__header">
+    <h1 class="modal-content__title">{{ config.data.title }}</h1>
+    <button class="modal-content__close-button" (click)="onClose()">X</button>
+  </div>
   <img [src]="config.data.urlToImage" alt="" class="modal-content__image">
   <p>{{ config.data.description }}</p>
 </div>
