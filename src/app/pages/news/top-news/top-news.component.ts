@@ -11,6 +11,7 @@ import { News } from '../../../shared/interfaces/news';
 export class TopNewsComponent implements OnInit {
   public news: News[] = [];
   public displayCnt: string = '20';
+  public value: string = null;
   public page: number = 1;
   public isMoreItems: boolean;
 
@@ -25,7 +26,7 @@ export class TopNewsComponent implements OnInit {
   public onDisplayCntChange(displayCntValue: string): void {
     this.displayCnt = displayCntValue;
     this.news = [];
-    this.getTopNews(displayCntValue);
+    this.getTopNews(displayCntValue, this.page);
   }
 
   public onShowMoreClick(): void {
@@ -34,8 +35,16 @@ export class TopNewsComponent implements OnInit {
     this.getTopNews(this.displayCnt, this.page);
   }
 
-  private getTopNews(pageSize?: string, pageNum?: number): void {
-    this.newsService.getAllTopNews(pageSize, pageNum).subscribe((data: any) => {
+  public onValueInput(value: string): void {
+    this.page = 1;
+    this._articlesCnt = null;
+    this.news = [];
+    this.value = value;
+    this.getTopNews(this.displayCnt, this.page, this.value);
+  }
+
+  private getTopNews(pageSize?: string, pageNum?: number, searchString?: string): void {
+    this.newsService.getAllTopNews(pageSize, pageNum, searchString).subscribe((data: any) => {
       if (this._articlesCnt === null) {
         this._articlesCnt = data.totalResults;
       }

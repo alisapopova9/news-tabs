@@ -11,24 +11,30 @@ export class NewsService {
 
   constructor(private http: HttpClient) { }
 
-  public getAllTopNews(pageSize?: string, pageNum?: number): Observable<object> {
-    let queryParams: string = 'country=ru';
+  public getAllTopNews(pageSize?: string, pageNum?: number, searchString?: string): Observable<object> {
+    let queryParams: string = 'country=us';
     if (pageSize) {
       queryParams += `&pageSize=${pageSize}`;
     }
     if (pageNum) {
       queryParams += `&page=${pageNum}`;
     }
+    if (searchString) {
+      queryParams += `&q=${searchString}`;
+    }
     return this.http.get<NewsSearchResult>(`https://newsapi.org/v2/top-headlines?${queryParams}`);
   }
 
-  public getAllNews(pageSize?: string, pageNum?: number): Observable<object> {
+  public getAllNews(pageSize?: string, pageNum?: number, searchString?: string): Observable<object> {
     let queryParams: string = 'q=russia';
     if (pageSize) {
       queryParams += `&pageSize=${pageSize}`;
     }
     if (pageNum) {
       queryParams += `&page=${pageNum}`;
+    }
+    if (searchString) {
+      queryParams += `&q=${searchString}`;
     }
     return this.http.get<NewsSearchResult>(`https://newsapi.org/v2/everything?${queryParams}`);
   }

@@ -10,6 +10,7 @@ import { NewsService } from '../../../core/services/news.service';
 export class AllNewsComponent implements OnInit {
   public news: News[] = [];
   public displayCnt: string = '20';
+  public value: string = null;
   public page: number = 1;
   public isMoreItems: boolean;
 
@@ -25,7 +26,7 @@ export class AllNewsComponent implements OnInit {
   public onDisplayCntChange(displayCntValue: string): void {
     this.displayCnt = displayCntValue;
     this.news = [];
-    this.getAllNews(displayCntValue);
+    this.getAllNews(displayCntValue, this.page);
   }
 
   public onShowMoreClick(): void {
@@ -34,8 +35,16 @@ export class AllNewsComponent implements OnInit {
     this.getAllNews(this.displayCnt, this.page);
   }
 
-  private getAllNews(pageSize?: string, pageNum?: number): void {
-    this.newsService.getAllNews(pageSize, pageNum).subscribe((data: any) => {
+  public onValueInput(value: string): void {
+    this.page = 1;
+    this._articlesCnt = null;
+    this.news = [];
+    this.value = value;
+    this.getAllNews(this.displayCnt, this.page, this.value);
+  }
+
+  private getAllNews(pageSize?: string, pageNum?: number, searchString?: string): void {
+    this.newsService.getAllNews(pageSize, pageNum, searchString).subscribe((data: any) => {
       if (this._articlesCnt === null) {
         this._articlesCnt = data.totalResults;
       }
