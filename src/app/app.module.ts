@@ -41,7 +41,7 @@ import { FormsModule } from '@angular/forms';
     },
     ModalConfig
   ],
-  bootstrap: [AppComponent],
-  entryComponents: [ModalContentComponent]
+  bootstrap: [AppComponent]
+  // entryComponents: [ModalContentComponent]
 })
 export class AppModule { }

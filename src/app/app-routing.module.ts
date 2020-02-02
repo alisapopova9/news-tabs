@@ -6,15 +6,15 @@ import { AllNewsComponent } from './pages/news/all-news/all-news.component';
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'top',
+    redirectTo: 'top-headlines',
     pathMatch: 'full'
   },
   {
-    path: 'top',
+    path: 'top-headlines',
     component: TopNewsComponent
   },
   {
-    path: 'all',
+    path: 'everything',
     component: AllNewsComponent
   }
 ];

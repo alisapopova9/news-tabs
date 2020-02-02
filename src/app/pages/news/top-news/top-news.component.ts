@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 
 import { NewsService } from '../../../core/services/news.service';
 import { News } from '../../../shared/interfaces/news';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-top-news',
@@ -17,20 +18,39 @@ export class TopNewsComponent implements OnInit {
 
   private _articlesCnt: number = null;
 
-  constructor(private newsService: NewsService) { }
+  constructor(private newsService: NewsService, private _router: Router) { }
 
   public ngOnInit(): void {
+    this._router.navigate([], {
+      queryParams: {
+        page: this.page,
+        pageSize: this.displayCnt
+      },
+      queryParamsHandling: 'merge'
+    });
     this.getTopNews();
   }
 
   public onDisplayCntChange(displayCntValue: string): void {
     this.displayCnt = displayCntValue;
     this.news = [];
+    this._router.navigate([], {
+      queryParams: {
+        pageSize: displayCntValue
+      },
+      queryParamsHandling: 'merge'
+    });
     this.getTopNews(displayCntValue, this.page);
   }
 
   public onShowMoreClick(): void {
     this.page++;
+    this._router.navigate([], {
+      queryParams: {
+        page: this.page
+      },
+      queryParamsHandling: 'merge'
+    });
     this._articlesCnt -= Number.parseInt(this.displayCnt, 10);
     this.getTopNews(this.displayCnt, this.page);
   }
@@ -40,6 +60,12 @@ export class TopNewsComponent implements OnInit {
     this._articlesCnt = null;
     this.news = [];
     this.value = value;
+    this._router.navigate([], {
+      queryParams: {
+        q: value
+      },
+      queryParamsHandling: 'merge'
+    });
     this.getTopNews(this.displayCnt, this.page, this.value);
   }
 
