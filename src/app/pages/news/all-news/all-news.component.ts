@@ -13,7 +13,7 @@ export class AllNewsComponent implements OnInit {
   public page: number = 1;
   public isMoreItems: boolean;
 
-  private _articlesCnt: number;
+  private _articlesCnt: number = null;
 
   constructor(private newsService: NewsService) {
   }
@@ -28,9 +28,17 @@ export class AllNewsComponent implements OnInit {
     this.getAllNews(displayCntValue);
   }
 
-  private getAllNews(pageSize?: string): void {
-    this.newsService.getAllNews(pageSize).subscribe((data: any) => {
-      this._articlesCnt = data.totalResults;
+  public onShowMoreClick(): void {
+    this.page++;
+    this._articlesCnt -= Number.parseInt(this.displayCnt, 10);
+    this.getAllNews(this.displayCnt, this.page);
+  }
+
+  private getAllNews(pageSize?: string, pageNum?: number): void {
+    this.newsService.getAllNews(pageSize, pageNum).subscribe((data: any) => {
+      if (this._articlesCnt === null) {
+        this._articlesCnt = data.totalResults;
+      }
       this.isMoreItems = (this._articlesCnt - Number.parseInt(this.displayCnt, 10)) > 0;
       data.articles.forEach((article: any) => {
         const news: News = {

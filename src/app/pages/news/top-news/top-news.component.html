@@ -18,6 +18,6 @@
   </div>
   <app-news-list [news]="news"></app-news-list>
   <div class="all-news__button-container">
-    <button *ngIf="isMoreItems === true">Show more...</button>
+    <button *ngIf="isMoreItems === true" (click)="onShowMoreClick()">Show more...</button>
   </div>
 </div>

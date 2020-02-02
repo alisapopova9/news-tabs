@@ -11,9 +11,10 @@ import { News } from '../../../shared/interfaces/news';
 export class TopNewsComponent implements OnInit {
   public news: News[] = [];
   public displayCnt: string = '20';
+  public page: number = 1;
   public isMoreItems: boolean;
 
-  private _articlesCnt: number;
+  private _articlesCnt: number = null;
 
   constructor(private newsService: NewsService) { }
 
@@ -27,9 +28,17 @@ export class TopNewsComponent implements OnInit {
     this.getTopNews(displayCntValue);
   }
 
-  private getTopNews(pageSize?: string): void {
-    this.newsService.getAllTopNews(pageSize).subscribe((data: any) => {
-      this._articlesCnt = data.totalResults;
+  public onShowMoreClick(): void {
+    this.page++;
+    this._articlesCnt -= Number.parseInt(this.displayCnt, 10);
+    this.getTopNews(this.displayCnt, this.page);
+  }
+
+  private getTopNews(pageSize?: string, pageNum?: number): void {
+    this.newsService.getAllTopNews(pageSize, pageNum).subscribe((data: any) => {
+      if (this._articlesCnt === null) {
+        this._articlesCnt = data.totalResults;
+      }
       this.isMoreItems = (this._articlesCnt - Number.parseInt(this.displayCnt, 10)) > 0;
       data.articles.forEach((article: any) => {
         const news: News = {
