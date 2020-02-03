@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-
 import { NewsService } from '../../../core/services/news.service';
 import { News } from '../../../shared/interfaces/news';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { UrlService } from '../../../core/services/url.service';
+import { NewsSearchResult } from '../../../shared/interfaces/news-search-result';
+
 const pageSizeDefault: string = '10';
 const pageDefault: number = 1;
 
@@ -25,8 +26,7 @@ export class TopNewsComponent implements OnInit {
   constructor(private newsService: NewsService,
               private _urlService: UrlService,
               private _route: ActivatedRoute,
-              private _router: Router) {
-  }
+              private _router: Router) { }
 
   public ngOnInit(): void {
     this._route.queryParams
@@ -38,7 +38,7 @@ export class TopNewsComponent implements OnInit {
             if (this._wasRefreshed) {
               let pageCnt: number = 1;
               while (pageCnt <= params.page) {
-                this.getTopNews(params.pageSize, pageCnt, params.q, this._wasRefreshed);
+                this.getTopNews(params.pageSize, pageCnt, params.q);
                 pageCnt++;
               }
               this._wasRefreshed = false;
@@ -73,10 +73,10 @@ export class TopNewsComponent implements OnInit {
     this._urlService.setQueryParams(this.page, this.pageSize, this.value);
   }
 
-  private getTopNews(pageSize: string, pageNum: number, searchString: string, flag?: boolean): void {
+  private getTopNews(pageSize: string, pageNum: number, searchString: string): void {
     const queryParams: Params = searchString === undefined ? {pageSize: pageSize, page: pageNum} : {pageSize: pageSize, page: pageNum, q: searchString};
     this.newsService.getAllTopNews(queryParams)
-      .subscribe((data: any) => {
+      .subscribe((data: NewsSearchResult) => {
         if (this._articlesCnt === null) {
           this._articlesCnt = data.totalResults;
         }
@@ -93,5 +93,4 @@ export class TopNewsComponent implements OnInit {
         });
     });
   }
-
 }

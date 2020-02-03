@@ -25,6 +25,7 @@ export class UrlService {
   public setQueryParams(page: number, pageSize: string, q: string): void {
     this._router.navigate([],
       {
+        relativeTo: this._route,
         queryParams: {
           page: page,
           pageSize: pageSize,

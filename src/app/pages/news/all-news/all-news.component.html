@@ -1,18 +1,19 @@
 <div>
+  <span>Start typing to search: </span>
   <app-input (valueInput)="onValueInput($event)"></app-input>
   <form class="all-news__display-count-form">
     <p>Show articles: </p>
     <div class="all-news__radios">
       <input type="radio" #choiceAll10 id="displayAllChoice2" name="show-all-articles" value="10"
-             [(ngModel)]="displayCnt" (change)="onDisplayCntChange(choiceAll10.value)"/>
+             [(ngModel)]="pageSize" (change)="onPageSizeChange(choiceAll10.value)"/>
       <label for="displayAllChoice2">10</label>
 
       <input type="radio" #choiceAll20 id="displayAllChoice3" name="show-all-articles" value="20"
-             [(ngModel)]="displayCnt" (change)="onDisplayCntChange(choiceAll20.value)" checked="checked"/>
+             [(ngModel)]="pageSize" (change)="onPageSizeChange(choiceAll20.value)" checked="checked"/>
       <label for="displayAllChoice3">20</label>
 
       <input type="radio" #choiceAll50 id="displayAllChoice1" name="show-all-articles" value="50"
-             [(ngModel)]="displayCnt" (change)="onDisplayCntChange(choiceAll50.value)"/>
+             [(ngModel)]="pageSize" (change)="onPageSizeChange(choiceAll50.value)"/>
       <label for="displayAllChoice1">50</label>
     </div>
   </form>

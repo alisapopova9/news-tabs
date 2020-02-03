@@ -1,8 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { News } from '../../../shared/interfaces/news';
 import { NewsService } from '../../../core/services/news.service';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 import { UrlService } from '../../../core/services/url.service';
+import { NewsSearchResult } from '../../../shared/interfaces/news-search-result';
+
+const pageSizeDefault: string = '10';
+const pageDefault: number = 1;
 
 @Component({
   selector: 'app-all-news',
@@ -11,46 +15,54 @@ import { UrlService } from '../../../core/services/url.service';
 })
 export class AllNewsComponent implements OnInit {
   public news: News[] = [];
-  public displayCnt: string = '20';
-  public value: string = null;
-  public page: number = 1;
+  public pageSize: string = '';
+  public value: string = '';
+  public page: number;
   public isMoreItems: boolean;
 
   private _articlesCnt: number = null;
+  private _wasRefreshed: boolean = true;
 
-  constructor(private newsService: NewsService, private _router: Router,
-              private _route: ActivatedRoute, private _urlService: UrlService) {
-  }
+  constructor(private newsService: NewsService,
+              private _urlService: UrlService,
+              private _route: ActivatedRoute,
+              private _router: Router) { }
 
   public ngOnInit(): void {
-    this.getAllNews();
-    this._urlService.setPageQueryParam(this.page);
-    this._urlService.setPageSizeQueryParam(this.displayCnt);
-    this._urlService.getAllNewsByClientUrl();
+    this._route.queryParams
+      .subscribe((params: Params) => {
+        if (params.pageSize && params.page && params.q) {
+          if (params.pageSize !== this.pageSize || params.page !== this.page) {
+            this.pageSize = params.pageSize;
+            this.page = params.page;
+            if (this._wasRefreshed) {
+              let pageCnt: number = 1;
+              while (pageCnt <= params.page) {
+                this.getAllNews(params.pageSize, pageCnt, params.q);
+                pageCnt++;
+              }
+              this._wasRefreshed = false;
+            } else {
+              this.getAllNews(params.pageSize, params.page, params.q);
+            }
+          }
+        } else {
+          this._urlService.setQueryParams(pageDefault, pageSizeDefault, this.value);
+        }
+      });
   }
 
-  public onDisplayCntChange(displayCntValue: string): void {
-    this.displayCnt = displayCntValue;
+  public onPageSizeChange(pageSize: string): void {
+    this.pageSize = pageSize;
+    this._articlesCnt = null;
     this.news = [];
-    this._router.navigate([], {
-      queryParams: {
-        pageSize: displayCntValue
-      },
-      queryParamsHandling: 'merge'
-    });
-    this.getAllNews(displayCntValue, this.page);
+    this.page = 1;
+    this._urlService.setQueryParams(this.page, this.pageSize, this.value);
   }
 
   public onShowMoreClick(): void {
     this.page++;
-    this._router.navigate([], {
-      queryParams: {
-        page: this.page
-      },
-      queryParamsHandling: 'merge'
-    });
-    this._articlesCnt -= Number.parseInt(this.displayCnt, 10);
-    this.getAllNews(this.displayCnt, this.page);
+    this._urlService.setPageQueryParam(this.page);
   }
 
   public onValueInput(value: string): void {
@@ -58,30 +70,27 @@ export class AllNewsComponent implements OnInit {
     this._articlesCnt = null;
     this.news = [];
     this.value = value;
-    this._router.navigate([], {
-      queryParams: {
-        q: value
-      },
-      queryParamsHandling: 'merge'
-    });
-    this.getAllNews(this.displayCnt, this.page, this.value);
+    this._urlService.setQueryParams(this.page, this.pageSize, this.value);
   }
 
-  private getAllNews(pageSize?: string, pageNum?: number, searchString?: string): void {
-    this.newsService.getAllNews(pageSize, pageNum, searchString).subscribe((data: any) => {
-      if (this._articlesCnt === null) {
-        this._articlesCnt = data.totalResults;
-      }
-      this.isMoreItems = (this._articlesCnt - Number.parseInt(this.displayCnt, 10)) > 0;
-      data.articles.forEach((article: any) => {
-        const news: News = {
-          title: article.title,
-          source: article.source.name,
-          description: article.description,
-          urlToImage: article.urlToImage
-        };
-        this.news.push(news);
+  private getAllNews(pageSize: string, pageNum: number, searchString: string): void {
+    const queryParams: Params = searchString === undefined ? {pageSize: pageSize, page: pageNum} : {pageSize: pageSize, page: pageNum, q: searchString};
+    this.newsService.getAllNews(queryParams)
+      .subscribe((data: NewsSearchResult) => {
+        if (this._articlesCnt === null) {
+          this._articlesCnt = data.totalResults;
+        }
+        this._articlesCnt -= Number.parseInt(this.pageSize, 10);
+        this.isMoreItems = (this._articlesCnt > 0);
+        data.articles.forEach((article: any) => {
+          const newsData: News = {
+            title: article.title,
+            source: article.source.name,
+            description: article.description,
+            urlToImage: article.urlToImage
+          };
+          this.news.push(newsData);
+        });
       });
-    });
   }
 }
