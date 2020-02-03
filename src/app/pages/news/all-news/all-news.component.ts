@@ -19,6 +19,7 @@ export class AllNewsComponent implements OnInit {
   public value: string = '';
   public page: number;
   public isMoreItems: boolean;
+  public isThereItems: boolean;
 
   private _articlesCnt: number = null;
   private _wasRefreshed: boolean = true;
@@ -80,6 +81,7 @@ export class AllNewsComponent implements OnInit {
         if (this._articlesCnt === null) {
           this._articlesCnt = data.totalResults;
         }
+        this.isThereItems = data.totalResults !== 0;
         this._articlesCnt -= Number.parseInt(this.pageSize, 10);
         this.isMoreItems = (this._articlesCnt > 0);
         data.articles.forEach((article: any) => {

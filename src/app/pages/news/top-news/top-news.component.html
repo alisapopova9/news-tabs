@@ -16,7 +16,12 @@
       <label for="displayTopChoice1">50</label>
     </div>
   </div>
-  <app-news-list [news]="news"></app-news-list>
+  <ng-container *ngIf="isThereItems === true">
+    <app-news-list [news]="news"></app-news-list>
+  </ng-container>
+  <div *ngIf="isThereItems === false">
+    Nothing was found.
+  </div>
   <div class="all-news__button-container">
     <button *ngIf="isMoreItems === true" (click)="onShowMoreClick()">Show more...</button>
   </div>
