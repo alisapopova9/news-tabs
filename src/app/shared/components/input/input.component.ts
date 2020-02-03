@@ -6,7 +6,7 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
   styleUrls: ['./input.component.scss']
 })
 export class InputComponent implements OnInit {
-  @Output() public valueInput: EventEmitter<string> = new EventEmitter();
+  @Output() public emitter: EventEmitter<string> = new EventEmitter();
 
   public value: string = null;
 
@@ -15,9 +15,9 @@ export class InputComponent implements OnInit {
   public ngOnInit(): void {
   }
 
-  public onValueInput(value: string): void {
+  public onValueChange(value: string): void {
     this.value = value;
-    this.valueInput.emit(this.value);
+    this.emitter.emit(this.value);
   }
 
 }

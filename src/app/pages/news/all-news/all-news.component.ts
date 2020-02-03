@@ -65,7 +65,7 @@ export class AllNewsComponent implements OnInit {
     this._urlService.setPageQueryParam(this.page);
   }
 
-  public onValueInput(value: string): void {
+  public onValueChange(value: string): void {
     this.page = 1;
     this._articlesCnt = null;
     this.news = [];

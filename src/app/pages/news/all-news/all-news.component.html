@@ -1,6 +1,6 @@
 <div>
   <span>Start typing to search: </span>
-  <app-input (valueInput)="onValueInput($event)"></app-input>
+  <app-input (emitter)="onValueChange($event)"></app-input>
   <form class="all-news__display-count-form">
     <p>Show articles: </p>
     <div class="all-news__radios">
