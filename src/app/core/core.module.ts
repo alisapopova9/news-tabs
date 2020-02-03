@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { NewsService } from './services/news.service';
 import { ApiKeyInterceptorService } from './interceptors/api-key-interceptor-service';
+import { UrlService } from './services/url.service';
 
 @NgModule({
   declarations: [],
@@ -11,7 +12,8 @@ import { ApiKeyInterceptorService } from './interceptors/api-key-interceptor-ser
   ],
   providers: [
     NewsService,
-    ApiKeyInterceptorService
+    ApiKeyInterceptorService,
+    UrlService
   ]
 })
 export class CoreModule {

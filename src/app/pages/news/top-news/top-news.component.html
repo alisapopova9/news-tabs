@@ -3,16 +3,16 @@
   <div class="all-news__display-count-form">
     <p>Show articles: </p>
     <div class="all-news__radios">
-      <input type="radio" #choiceTop10  id="displayTopChoice2" name="show-top-articles" value="10"
-             [(ngModel)]="displayCnt" (ngModelChange)="onDisplayCntChange(choiceTop10.value)"/>
+      <input type="radio" #choiceTop10 id="displayTopChoice2" name="show-top-articles" value="10"
+             [(ngModel)]="pageSize" (ngModelChange)="onPageSizeChange(choiceTop10.value)"/>
       <label for="displayTopChoice2">10</label>
 
       <input type="radio" #choiceTop20 id="displayTopChoice3" name="show-top-articles" value="20"
-             [(ngModel)]="displayCnt" (ngModelChange)="onDisplayCntChange(choiceTop20.value)" />
+             [(ngModel)]="pageSize" (ngModelChange)="onPageSizeChange(choiceTop20.value)" />
       <label for="displayTopChoice3">20</label>
 
       <input type="radio" #choiceTop50 id="displayTopChoice1" name="show-top-articles" value="50"
-             [(ngModel)]="displayCnt" (ngModelChange)="onDisplayCntChange(choiceTop50.value)"/>
+             [(ngModel)]="pageSize" (ngModelChange)="onPageSizeChange(choiceTop50.value)"/>
       <label for="displayTopChoice1">50</label>
     </div>
   </div>

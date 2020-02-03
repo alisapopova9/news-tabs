@@ -11,7 +11,7 @@ export class ApiKeyInterceptorService implements HttpInterceptor {
   ): Observable<HttpEvent<any>> {
     if (req.params.get('apiKey') === null) {
       req = req.clone(
-        {params: req.params.append('apiKey', '7204f60dcfdf4d57afedf1cfd95e6848')});
+        {params: req.params.append('apiKey', '96849ef6f35147979d7bd8a9779be526')});
     }
     return next.handle(req);
   }

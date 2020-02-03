@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { News } from '../../../shared/interfaces/news';
 import { NewsService } from '../../../core/services/news.service';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { UrlService } from '../../../core/services/url.service';
 
 @Component({
   selector: 'app-all-news',
@@ -17,18 +18,15 @@ export class AllNewsComponent implements OnInit {
 
   private _articlesCnt: number = null;
 
-  constructor(private newsService: NewsService, private _router: Router) {
+  constructor(private newsService: NewsService, private _router: Router,
+              private _route: ActivatedRoute, private _urlService: UrlService) {
   }
 
   public ngOnInit(): void {
     this.getAllNews();
-    this._router.navigate([], {
-      queryParams: {
-        page: this.page,
-        pageSize: this.displayCnt
-      },
-      queryParamsHandling: 'merge'
-    });
+    this._urlService.setPageQueryParam(this.page);
+    this._urlService.setPageSizeQueryParam(this.displayCnt);
+    this._urlService.getAllNewsByClientUrl();
   }
 
   public onDisplayCntChange(displayCntValue: string): void {

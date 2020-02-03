@@ -15,6 +15,7 @@ import { NewsModalModule } from './components/news-modal/news-modal.module';
 import { ModalContentComponent } from './components/modal-content/modal-content.component';
 import { ModalConfig } from './components/news-modal/modal-config';
 import { FormsModule } from '@angular/forms';
+import { CoreModule } from './core/core.module';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,8 @@ import { FormsModule } from '@angular/forms';
     AppRoutingModule,
     HttpClientModule,
     NewsModalModule,
-    FormsModule
+    FormsModule,
+    CoreModule
   ],
   providers: [
     {
@@ -41,7 +43,7 @@ import { FormsModule } from '@angular/forms';
     },
     ModalConfig
   ],
-  bootstrap: [AppComponent]
-  // entryComponents: [ModalContentComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [ModalContentComponent]
 })
 export class AppModule { }
