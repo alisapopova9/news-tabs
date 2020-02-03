@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Params, Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { NewsService } from './core/services/news.service';
-import { skip } from 'rxjs/operators';
 
 @Component({
   selector: 'app-root',
@@ -16,5 +15,4 @@ export class AppComponent implements OnInit {
               private _newsService: NewsService) { }
 
   public ngOnInit(): void { }
-
 }

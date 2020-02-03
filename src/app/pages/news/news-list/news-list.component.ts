@@ -14,8 +14,7 @@ export class NewsListComponent implements OnInit {
 
   constructor(public modal: NewsModalService, public config: ModalConfig) {}
 
-  public ngOnInit(): void {
-  }
+  public ngOnInit(): void { }
 
   public onItemClick(event: Event, paper: News): void {
     this.modal.open(ModalContentComponent, {data: paper});

@@ -23,7 +23,7 @@ export class TopNewsComponent implements OnInit {
   private _articlesCnt: number = null;
   private _wasRefreshed: boolean = true;
 
-  constructor(private newsService: NewsService,
+  constructor(private _newsService: NewsService,
               private _urlService: UrlService,
               private _route: ActivatedRoute,
               private _router: Router) { }
@@ -75,7 +75,7 @@ export class TopNewsComponent implements OnInit {
 
   private getTopNews(pageSize: string, pageNum: number, searchString: string): void {
     const queryParams: Params = searchString === undefined ? {pageSize: pageSize, page: pageNum} : {pageSize: pageSize, page: pageNum, q: searchString};
-    this.newsService.getAllTopNews(queryParams)
+    this._newsService.getAllTopNews(queryParams)
       .subscribe((data: NewsSearchResult) => {
         if (this._articlesCnt === null) {
           this._articlesCnt = data.totalResults;
