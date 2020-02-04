@@ -1,0 +1,29 @@
+<div>
+  <span>Start typing to search: </span>
+  <app-input (emitter)="onValueChange($event)"></app-input>
+  <form class="all-news__display-count-form">
+    <p>Show articles: </p>
+    <div class="all-news__radios">
+      <input type="radio" #choiceAll10 id="displayAllChoice2" name="show-all-articles" value="10"
+             [(ngModel)]="pageSize" (change)="onPageSizeChange(choiceAll10.value)"/>
+      <label for="displayAllChoice2">10</label>
+
+      <input type="radio" #choiceAll20 id="displayAllChoice3" name="show-all-articles" value="20"
+             [(ngModel)]="pageSize" (change)="onPageSizeChange(choiceAll20.value)" checked="checked"/>
+      <label for="displayAllChoice3">20</label>
+
+      <input type="radio" #choiceAll50 id="displayAllChoice1" name="show-all-articles" value="50"
+             [(ngModel)]="pageSize" (change)="onPageSizeChange(choiceAll50.value)"/>
+      <label for="displayAllChoice1">50</label>
+    </div>
+  </form>
+  <ng-container *ngIf="isMoreItems === true">
+    <app-news-list [news]="news"></app-news-list>
+  </ng-container>
+  <div *ngIf="isThereItems === false">
+    Nothing was found.
+  </div>
+  <div class="all-news__button-container">
+    <button *ngIf="isMoreItems === true" (click)="onShowMoreClick()">Show more...</button>
+  </div>
+</div>

@@ -1,0 +1,10 @@
+<div class="news-list__container">
+  <div *ngFor="let paper of news" class="news-list__item" (click)="onItemClick($event, paper)">
+    <div class="item__title">
+      {{ paper.title }}
+    </div>
+    <div>
+      Source: {{ paper.source }}
+    </div>
+  </div>
+</div>

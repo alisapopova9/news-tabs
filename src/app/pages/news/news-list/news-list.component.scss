@@ -1,0 +1,22 @@
+.news-list__container {
+  display: flex;
+  flex-direction: column;
+}
+
+.news-list__item {
+  cursor: pointer;
+  color: black;
+  text-decoration: none;
+  padding: 10px;
+}
+
+.news-list__item:hover {
+  background-color: #EEEEEE;
+}
+
+.item__title {
+  font-size: 18px;
+  line-height: 20px;
+  font-weight: bold;
+  margin-bottom: 5px;
+}

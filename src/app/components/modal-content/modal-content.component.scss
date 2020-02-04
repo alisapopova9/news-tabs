@@ -1,0 +1,24 @@
+.modal-content__header {
+  box-sizing: border-box;
+  padding: 10px 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  position: sticky;
+  top: 0;
+  background-color: white;
+}
+
+.modal-content__close-button {
+  height: 30px;
+  width: 30px;
+}
+
+.modal-content__title {
+  margin: 0;
+}
+
+.modal-content__image {
+  width: 100%;
+  height: auto;
+}
