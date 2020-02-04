@@ -16,6 +16,7 @@ import { ModalContentComponent } from './components/modal-content/modal-content.
 import { ModalConfig } from './components/news-modal/modal-config';
 import { FormsModule } from '@angular/forms';
 import { CoreModule } from './core/core.module';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,8 @@ import { CoreModule } from './core/core.module';
     HttpClientModule,
     NewsModalModule,
     FormsModule,
-    CoreModule
+    CoreModule,
+    BrowserAnimationsModule
   ],
   providers: [
     {
