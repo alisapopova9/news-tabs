@@ -8,7 +8,7 @@ import { NewsService } from './core/services/news.service';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
-  public title: string = 'news-tabs';
+  // public title: string = 'news-tabs';
 
   constructor(private _router: Router,
               private _route: ActivatedRoute,
