@@ -12,13 +12,13 @@ import {
 import { InsertionDirective } from '../insertion.directive';
 import { Observable, Subject } from 'rxjs';
 import { ModalRef } from './modal-ref';
-import { BodyScrollingService } from '../../../core/services/body-scrolling.service';
+import { BodyScrollingService } from '../../../../core/services/body-scrolling.service';
 import { animate, style, transition, trigger } from '@angular/animations';
 
 @Component({
-  selector: 'app-news-modal',
-  templateUrl: './news-modal.component.html',
-  styleUrls: ['./news-modal.component.scss'],
+  selector: 'app-modal',
+  templateUrl: './modal.component.html',
+  styleUrls: ['./modal.component.scss'],
   animations: [
     trigger('openAnimationTrigger', [
       transition('void => *', [
@@ -31,7 +31,7 @@ import { animate, style, transition, trigger } from '@angular/animations';
     ])
   ]
 })
-export class NewsModalComponent implements OnInit, AfterViewInit, OnDestroy {
+export class ModalComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild(InsertionDirective, {static: false}) public insertionPoint: InsertionDirective;
 
   public componentRef: ComponentRef<any>;

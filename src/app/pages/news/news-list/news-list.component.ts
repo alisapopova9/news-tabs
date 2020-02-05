@@ -1,8 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { News } from '../../../shared/interfaces/news';
-import { NewsModalService } from '../../../components/news-modal/news-modal.service';
-import { ModalContentComponent } from '../../../components/modal-content/modal-content.component';
-import { ModalConfig } from '../../../components/news-modal/modal-config';
+import { ModalService } from '../../../shared/components/modal/modal.service';
+import { NewsModalComponent } from '../../../components/news-modal/news-modal.component';
+import { ModalConfig } from '../../../shared/components/modal/modal-config';
 
 @Component({
   selector: 'app-news-list',
@@ -12,12 +12,12 @@ import { ModalConfig } from '../../../components/news-modal/modal-config';
 export class NewsListComponent implements OnInit {
   @Input() public news: News[];
 
-  constructor(public modal: NewsModalService, public config: ModalConfig) {}
+  constructor(public modal: ModalService, public config: ModalConfig) {}
 
   public ngOnInit(): void { }
 
   public onItemClick(event: Event, paper: News): void {
-    this.modal.open(ModalContentComponent, {data: paper});
+    this.modal.open(NewsModalComponent, {data: paper});
   }
 
 }

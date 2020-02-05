@@ -10,9 +10,9 @@ import { InputComponent } from './shared/components/input/input.component';
 import { NewsComponent } from './pages/news/news.component';
 import { ApiKeyInterceptorService } from './core/interceptors/api-key-interceptor-service';
 import { TabsComponent } from './components/tabs/tabs.component';
-import { NewsModalModule } from './components/news-modal/news-modal.module';
-import { ModalContentComponent } from './components/modal-content/modal-content.component';
-import { ModalConfig } from './components/news-modal/modal-config';
+import { ModalModule } from './shared/components/modal/modal.module';
+import { NewsModalComponent } from './components/news-modal/news-modal.component';
+import { ModalConfig } from './shared/components/modal/modal-config';
 import { FormsModule } from '@angular/forms';
 import { CoreModule } from './core/core.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -24,13 +24,13 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     InputComponent,
     NewsComponent,
     TabsComponent,
-    ModalContentComponent
+    NewsModalComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    NewsModalModule,
+    ModalModule,
     FormsModule,
     CoreModule,
     BrowserAnimationsModule
@@ -44,6 +44,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     ModalConfig
   ],
   bootstrap: [AppComponent],
-  entryComponents: [ModalContentComponent]
+  entryComponents: [NewsModalComponent]
 })
 export class AppModule { }

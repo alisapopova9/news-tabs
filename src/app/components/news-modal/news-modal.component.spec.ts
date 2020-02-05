@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ModalContentComponent } from './modal-content.component';
+import { NewsModalComponent } from './news-modal.component';
 
 describe('ModalContentComponent', () => {
-  let component: ModalContentComponent;
-  let fixture: ComponentFixture<ModalContentComponent>;
+  let component: NewsModalComponent;
+  let fixture: ComponentFixture<NewsModalComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ModalContentComponent ]
+      declarations: [ NewsModalComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ModalContentComponent);
+    fixture = TestBed.createComponent(NewsModalComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
