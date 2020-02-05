@@ -23,7 +23,6 @@ export class NewsService {
   }
 
   public getAllNews(queryParams?: object): Observable<object> {
-    // let queryString: string = 'q=';
     let queryString: string = 'language=en';
     for (const param in queryParams) {
       if (queryParams.hasOwnProperty(param)) {

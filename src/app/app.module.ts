@@ -7,8 +7,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NewsListComponent } from './pages/news/news-list/news-list.component';
 import { InputComponent } from './shared/components/input/input.component';
-import { AllNewsComponent } from './pages/news/all-news/all-news.component';
-import { TopNewsComponent } from './pages/news/top-news/top-news.component';
+import { NewsComponent } from './pages/news/news.component';
 import { ApiKeyInterceptorService } from './core/interceptors/api-key-interceptor-service';
 import { TabsComponent } from './components/tabs/tabs.component';
 import { NewsModalModule } from './components/news-modal/news-modal.module';
@@ -23,8 +22,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     AppComponent,
     NewsListComponent,
     InputComponent,
-    AllNewsComponent,
-    TopNewsComponent,
+    NewsComponent,
     TabsComponent,
     ModalContentComponent
   ],
