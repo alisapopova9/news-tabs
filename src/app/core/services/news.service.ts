@@ -10,25 +10,25 @@ import { Params } from '@angular/router';
 })
 export class NewsService {
 
-  constructor(private http: HttpClient) { }
-
-  public getAllTopNews(queryParams?: object): Observable<NewsSearchResult> {
-    let queryString: string = 'country=us';
+  private static getQueryString(queryParams: object): string {
+    let queryString: string = '';
     for (const param in queryParams) {
       if (queryParams.hasOwnProperty(param)) {
         queryString += `&${param}=${queryParams[param]}`;
       }
     }
+    return queryString;
+  }
+
+  constructor(private http: HttpClient) { }
+
+  public getAllTopNews(queryParams?: object): Observable<NewsSearchResult> {
+    const queryString: string = 'country=us' + NewsService.getQueryString(queryParams);
     return this.http.get<NewsSearchResult>(`https://newsapi.org/v2/top-headlines?${queryString}`);
   }
 
   public getAllNews(queryParams?: object): Observable<object> {
-    let queryString: string = 'language=en';
-    for (const param in queryParams) {
-      if (queryParams.hasOwnProperty(param)) {
-        queryString += `&${param}=${queryParams[param]}`;
-      }
-    }
+    const queryString: string = 'language=en' + NewsService.getQueryString(queryParams);
     return this.http.get<NewsSearchResult>(`https://newsapi.org/v2/everything?${queryString}`);
   }
 
