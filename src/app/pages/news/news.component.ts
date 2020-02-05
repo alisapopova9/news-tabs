@@ -56,10 +56,8 @@ export class NewsComponent implements OnInit {
   }
 
   public onPageSizeChange(pageSize: string): void {
+    this.resetData();
     this.pageSize = pageSize;
-    this._articlesCnt = null;
-    this.news = [];
-    this.page = 1;
     this._urlService.setQueryParams(this.page, this.pageSize, this.value);
   }
 
@@ -69,11 +67,15 @@ export class NewsComponent implements OnInit {
   }
 
   public onValueChange(value: string): void {
-    this.page = 1;
-    this._articlesCnt = null;
-    this.news = [];
+    this.resetData();
     this.value = value;
     this._urlService.setQueryParams(this.page, this.pageSize, this.value);
+  }
+
+  private resetData(): void {
+    this._articlesCnt = null;
+    this.news = [];
+    this.page = 1;
   }
 
   private handleNewsData(data: NewsSearchResult): void {
