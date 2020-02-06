@@ -4,6 +4,7 @@ import { NewsService } from '../../core/services/news.service';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { UrlService } from '../../core/services/url.service';
 import { NewsSearchResult } from '../../shared/interfaces/news-search-result';
+import { HttpParams } from '@angular/common/http';
 
 const pageSizeDefault: string = '10';
 const pageDefault: number = 1;
@@ -18,8 +19,8 @@ export class NewsComponent implements OnInit {
   public pageSize: string = '';
   public value: string = '';
   public page: number;
-  public isMoreItems: boolean;
-  public isThereItems: boolean;
+  public isMoreItems: boolean = null;
+  public isThereItems: boolean = null;
 
   private _articlesCnt: number = null;
   private _wasRefreshed: boolean = true;
@@ -97,9 +98,10 @@ export class NewsComponent implements OnInit {
   }
 
   private getNews(pageSize: string, pageNum: number, searchString: string): void {
-    const queryParams: Params = searchString === undefined
-      ? {pageSize: pageSize, page: pageNum}
-      : {pageSize: pageSize, page: pageNum, q: searchString};
+    let queryParams: HttpParams = new HttpParams({ fromString: `pageSize=${pageSize}&page=${pageNum}` });
+    if (searchString) {
+      queryParams = queryParams.set('q', searchString);
+    }
     switch (this._route.snapshot.url[0].path) {
       case ('everything'): {
         this._newsService.getAllNews(queryParams)
