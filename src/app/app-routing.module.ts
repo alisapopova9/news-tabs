@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { TopNewsComponent } from './pages/news/top-news/top-news.component';
-import { AllNewsComponent } from './pages/news/all-news/all-news.component';
+import { NewsComponent } from './pages/news/news.component';
 
 const routes: Routes = [
   {
@@ -11,11 +10,11 @@ const routes: Routes = [
   },
   {
     path: 'top-headlines',
-    component: TopNewsComponent
+    component: NewsComponent
   },
   {
     path: 'everything',
-    component: AllNewsComponent
+    component: NewsComponent
   }
 ];
 

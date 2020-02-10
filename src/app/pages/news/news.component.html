@@ -9,7 +9,7 @@
       <label for="displayAllChoice2">10</label>
 
       <input type="radio" #choiceAll20 id="displayAllChoice3" name="show-all-articles" value="20"
-             [(ngModel)]="pageSize" (change)="onPageSizeChange(choiceAll20.value)" checked="checked"/>
+             [(ngModel)]="pageSize" (change)="onPageSizeChange(choiceAll20.value)"/>
       <label for="displayAllChoice3">20</label>
 
       <input type="radio" #choiceAll50 id="displayAllChoice1" name="show-all-articles" value="50"
@@ -17,13 +17,13 @@
       <label for="displayAllChoice1">50</label>
     </div>
   </form>
-  <ng-container *ngIf="isMoreItems === true">
+  <ng-container *ngIf="isThereItems">
     <app-news-list [news]="news"></app-news-list>
   </ng-container>
   <div *ngIf="isThereItems === false">
     Nothing was found.
   </div>
   <div class="all-news__button-container">
-    <button *ngIf="isMoreItems === true" (click)="onShowMoreClick()">Show more...</button>
+    <button *ngIf="isMoreItems" (click)="onShowMoreClick()">Show more...</button>
   </div>
 </div>

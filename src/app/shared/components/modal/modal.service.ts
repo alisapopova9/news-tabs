@@ -7,19 +7,19 @@ import {
   Injectable,
   Injector, Type
 } from '@angular/core';
-import { NewsModalModule } from './news-modal.module';
-import { NewsModalComponent } from './news-modal/news-modal.component';
-import { NewsModalInjector } from './news-modal-injector';
+import { ModalModule } from './modal.module';
+import { ModalComponent } from './modal/modal.component';
+import { ModalInjector } from './modal-injector';
 import { ModalConfig } from './modal-config';
-import { ModalRef } from './news-modal/modal-ref';
+import { ModalRef } from './modal/modal-ref';
 import { Subscription } from 'rxjs';
-import { BodyScrollingService } from '../../core/services/body-scrolling.service';
+import { BodyScrollingService } from '../../../core/services/body-scrolling.service';
 
 @Injectable({
-  providedIn: NewsModalModule
+  providedIn: ModalModule
 })
-export class NewsModalService {
-  private modalComponentRef: ComponentRef<NewsModalComponent>;
+export class ModalService {
+  private modalComponentRef: ComponentRef<ModalComponent>;
 
   constructor(private componentFactoryResolver: ComponentFactoryResolver,
               private appRef: ApplicationRef,
@@ -47,8 +47,8 @@ export class NewsModalService {
       sub.unsubscribe();
     });
 
-    const componentFactory: ComponentFactory<NewsModalComponent> = this.componentFactoryResolver.resolveComponentFactory(NewsModalComponent);
-    const componentRef: ComponentRef<NewsModalComponent> = componentFactory.create(new NewsModalInjector(this.injector, map));
+    const componentFactory: ComponentFactory<ModalComponent> = this.componentFactoryResolver.resolveComponentFactory(ModalComponent);
+    const componentRef: ComponentRef<ModalComponent> = componentFactory.create(new ModalInjector(this.injector, map));
     this.appRef.attachView(componentRef.hostView);
 
     const domElem: HTMLElement = (componentRef.hostView as EmbeddedViewRef<any>).rootNodes[0] as HTMLElement;
